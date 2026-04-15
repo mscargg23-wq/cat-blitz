@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat Blitz Arena</title>
+  <meta
+    name="description"
+    content="A playful browser arcade where cats sprint across the screen and you have to tag them before they escape."
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-glow page-glow--left" aria-hidden="true"></div>
+  <div class="page-glow page-glow--right" aria-hidden="true"></div>
+
+  <main class="page-shell">
+    <header class="hero-card">
+      <div class="hero-copy">
+        <p class="eyebrow">Static arcade micro-site</p>
+        <h1>Cat Blitz Arena</h1>
+        <p class="hero-text">
+          Cats sprint through a neon backyard, you tap them before they vanish, and every clean streak turns into a score explosion.
+          Built as a single static site, so it is ready for any public static hosting platform.
+        </p>
+
+        <div class="mode-picker" role="group" aria-label="Difficulty">
+          <button class="mode-button is-active" type="button" data-mode="meadow">Meadow</button>
+          <button class="mode-button" type="button" data-mode="rooftop">Rooftop</button>
+          <button class="mode-button" type="button" data-mode="mayhem">Mayhem</button>
+        </div>
+
+        <div class="hero-actions">
+          <button id="startRoundButton" class="primary-button" type="button">Start Round</button>
+          <button id="showRulesButton" class="secondary-button" type="button">How To Play</button>
+        </div>
+      </div>
+
+      <div class="hero-stats" aria-label="Round stats">
+        <article class="stat-card">
+          <span>Score</span>
+          <strong id="scoreValue">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Time Left</span>
+          <strong id="timerValue">45.0s</strong>
+        </article>
+        <article class="stat-card">
+          <span>Combo</span>
+          <strong id="comboValue">x1</strong>
+        </article>
+        <article class="stat-card">
+          <span>Best Score</span>
+          <strong id="highScoreValue">0</strong>
+        </article>
+      </div>
+    </header>
+
+    <section class="content-grid">
+      <section class="arena-shell">
+        <div class="arena-topbar">
+          <div class="chip-list">
+            <span class="chip" id="modeChip">Mode: Meadow</span>
+            <span class="chip" id="targetChip">Escapes allowed: 8</span>
+            <span class="chip" id="speedChip">Speed: breezy</span>
+          </div>
+          <p class="tiny-note">Click or tap cats. Empty clicks reset your combo.</p>
+        </div>
+
+        <div class="arena" id="arena" tabindex="0" aria-label="Cat running arena">
+          <div class="arena-skyline" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="arena-lanes" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="message-banner" id="messageBanner">Warm up your cursor. The cats are stretching.</div>
+          <div class="playfield" id="playfield"></div>
+          <div class="effects-layer" id="effectsLayer" aria-hidden="true"></div>
+
+          <div class="overlay" id="overlay">
+            <div class="overlay-card">
+              <p class="eyebrow">Fast click arcade</p>
+              <h2 id="overlayTitle">Ready for a cat chase?</h2>
+              <p id="overlayText">
+                Pick a mode, hit start, and tag every cat before it escapes off-screen. Golden cats are worth more points,
+                but every empty click wipes your combo.
+              </p>
+              <div class="overlay-actions">
+                <button id="overlayStartButton" class="primary-button" type="button">Play Now</button>
+                <button id="overlayRulesButton" class="secondary-button" type="button">Show Rules</button>
+              </div>
+              <p class="overlay-footnote" id="overlayFootnote">Best result is saved in your browser.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="round-strip">
+          <article class="round-card">
+            <span>Hits</span>
+            <strong id="hitsValue">0</strong>
+          </article>
+          <article class="round-card">
+            <span>Escapes</span>
+            <strong id="missesValue">0</strong>
+          </article>
+          <article class="round-card">
+            <span>Best Combo</span>
+            <strong id="bestComboValue">0</strong>
+          </article>
+          <article class="round-card">
+            <span>Accuracy Mood</span>
+            <strong id="accuracyMoodValue">Steady</strong>
+          </article>
+        </div>
+      </section>
+
+      <aside class="side-panels">
+        <section class="panel">
+          <h2>How it works</h2>
+          <ul class="bullet-list">
+            <li>Normal cats give a clean base score.</li>
+            <li>Golden cats are rare and worth a bigger burst of points.</li>
+            <li>Escapes count against your round limit.</li>
+            <li>Empty taps do not end the round, but they break your combo.</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2>Mode guide</h2>
+          <div class="mode-guide">
+            <article>
+              <strong>Meadow</strong>
+              <p>Slower pace, generous time, perfect for a first public demo.</p>
+            </article>
+            <article>
+              <strong>Rooftop</strong>
+              <p>Sharper speeds, tighter spawn rhythm, and less room for misses.</p>
+            </article>
+            <article>
+              <strong>Mayhem</strong>
+              <p>Arcade chaos with fast cats, short gaps, and hard pressure.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Public hosting note</h2>
+          <p>
+            This build is plain HTML, CSS, and JavaScript. You can upload the whole folder as-is to GitHub Pages,
+            Netlify, Cloudflare Pages, or any static host.
+          </p>
+          <p class="panel-accent">Files to publish: <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>.</p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <p id="liveRegion" class="sr-only" aria-live="polite"></p>
+
+  <noscript>
+    <div class="noscript-banner">JavaScript is required for the game to run.</div>
+  </noscript>
+
+  <script src="app.js"></script>
+</body>
+</html>
