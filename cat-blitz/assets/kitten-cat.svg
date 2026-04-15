@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="kitten-body" x1="166" y1="140" x2="333" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B8BBC1"/>
+      <stop offset="1" stop-color="#666B77"/>
+    </linearGradient>
+    <linearGradient id="kitten-head" x1="182" y1="84" x2="322" y2="242" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D7DADF"/>
+      <stop offset="1" stop-color="#7A808B"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="256" cy="454" rx="90" ry="24" fill="#091018" opacity=".14"/>
+  <path d="M324 314c36 10 63 33 73 65 8 24-11 38-31 30-16-6-17-22-24-34-9-15-25-26-40-33l22-28Z" fill="#696D78"/>
+
+  <ellipse cx="257" cy="326" rx="102" ry="94" fill="url(#kitten-body)"/>
+  <path
+    d="M203 389c13 28 34 46 55 46 33 0 63-18 83-47-27-7-48-18-65-36-19 18-43 30-73 37Z"
+    fill="#EFF1F4"
+    opacity=".9"
+  />
+  <path d="M207 399c-15 0-26 18-28 32h33l7-32h-12Z" fill="#7C828E"/>
+  <path d="M286 399c15 0 26 18 27 32h-34l-6-32h13Z" fill="#7C828E"/>
+
+  <ellipse cx="257" cy="206" rx="92" ry="95" fill="url(#kitten-head)"/>
+  <path d="M207 118 172 166l55-4-20-44Z" fill="#7A808B"/>
+  <path d="M334 120 293 165l60-6-19-39Z" fill="#7A808B"/>
+  <path d="M207 129 188 158l27-2-8-27Z" fill="#F5CCD6"/>
+  <path d="M320 130 302 157l26-3-8-24Z" fill="#F5CCD6"/>
+
+  <ellipse cx="224" cy="211" rx="24" ry="24" fill="#C8DE83"/>
+  <ellipse cx="291" cy="211" rx="24" ry="24" fill="#C8DE83"/>
+  <ellipse cx="224" cy="211" rx="8" ry="11" fill="#1A1A1A"/>
+  <ellipse cx="291" cy="211" rx="8" ry="11" fill="#1A1A1A"/>
+  <circle cx="218" cy="203" r="4" fill="#fff" opacity=".9"/>
+  <circle cx="285" cy="203" r="4" fill="#fff" opacity=".9"/>
+
+  <path d="M236 234c7 9 13 13 22 13 8 0 15-4 21-13-6-6-14-8-21-8-8 0-16 2-22 8Z" fill="#FFF4EE"/>
+  <path d="M257 240c-7 0-13 3-18 9 6 4 12 6 18 6 5 0 11-2 18-6-5-6-11-9-18-9Z" fill="#A6736B"/>
+
+  <path d="M191 180c12-10 24-15 38-15" stroke="#5C616E" stroke-linecap="round" stroke-width="9"/>
+  <path d="M285 164c19-1 31 4 43 14" stroke="#5C616E" stroke-linecap="round" stroke-width="9"/>
+  <path d="M212 134c9 10 18 15 30 17" stroke="#666A76" stroke-linecap="round" stroke-width="8"/>
+  <path d="M299 134c-9 10-18 15-29 17" stroke="#666A76" stroke-linecap="round" stroke-width="8"/>
+  <path d="M190 289c13-9 28-12 44-11" stroke="#5E6470" stroke-linecap="round" stroke-width="10"/>
+  <path d="M188 323c18-8 35-8 50-3" stroke="#5E6470" stroke-linecap="round" stroke-width="10"/>
+  <path d="M321 290c-13-9-26-11-40-10" stroke="#5E6470" stroke-linecap="round" stroke-width="10"/>
+  <path d="M322 324c-15-8-30-8-46-4" stroke="#5E6470" stroke-linecap="round" stroke-width="10"/>
+
+  <path d="M214 235 141 225" stroke="#EFF2F4" stroke-linecap="round" stroke-width="4"/>
+  <path d="M214 247 143 252" stroke="#EFF2F4" stroke-linecap="round" stroke-width="4"/>
+  <path d="M300 235 372 225" stroke="#EFF2F4" stroke-linecap="round" stroke-width="4"/>
+  <path d="M300 247 371 253" stroke="#EFF2F4" stroke-linecap="round" stroke-width="4"/>
+</svg>

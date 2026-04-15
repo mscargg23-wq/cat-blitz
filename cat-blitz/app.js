@@ -70,9 +70,30 @@ const MODES = {
 };
 
 const CAT_VARIANTS = [
-  { className: "cat--ginger", points: 12, label: "ginger" },
-  { className: "cat--night", points: 16, label: "night" },
-  { className: "cat--mint", points: 18, label: "mint" },
+  {
+    className: "cat--ginger",
+    points: 12,
+    label: "ginger tabby",
+    image: "./assets/ginger-cat.svg",
+    sizeFactor: 1.04,
+    bobFactor: 1,
+  },
+  {
+    className: "cat--silver",
+    points: 16,
+    label: "silver shorthair",
+    image: "./assets/silver-cat.svg",
+    sizeFactor: 1.02,
+    bobFactor: 0.92,
+  },
+  {
+    className: "cat--kitten",
+    points: 18,
+    label: "kitten",
+    image: "./assets/kitten-cat.svg",
+    sizeFactor: 0.9,
+    bobFactor: 1.18,
+  },
 ];
 
 const state = {
@@ -171,20 +192,10 @@ function syncHud() {
   accuracyMoodValue.textContent = moodLabel();
 }
 
-function createCatMarkup() {
+function createCatMarkup(variant) {
   return `
     <span class="cat__shadow"></span>
-    <span class="cat__tail"></span>
-    <span class="cat__body">
-      <span class="cat__ear cat__ear--left"></span>
-      <span class="cat__ear cat__ear--right"></span>
-      <span class="cat__face">
-        <span class="cat__eye cat__eye--left"></span>
-        <span class="cat__eye cat__eye--right"></span>
-        <span class="cat__nose"></span>
-      </span>
-    </span>
-    <span class="cat__paws"></span>
+    <img class="cat__sprite" src="${variant.image}" alt="" draggable="false">
   `;
 }
 
@@ -210,13 +221,20 @@ function createCat() {
   const lane = LANES[laneIndex];
   const isGold = Math.random() < mode.bonusChance;
   const variant = isGold
-    ? { className: "cat--gold", points: 36, label: "gold" }
+    ? {
+        className: "cat--gold cat--ginger",
+        points: 36,
+        label: "golden tabby",
+        image: "./assets/ginger-cat.svg",
+        sizeFactor: 1.08,
+        bobFactor: 0.98,
+      }
     : CAT_VARIANTS[Math.floor(Math.random() * CAT_VARIANTS.length)];
-  const size = Math.round(72 * lane.scale + Math.random() * 24);
+  const size = Math.round((104 * lane.scale + Math.random() * 20) * variant.sizeFactor);
   const direction = Math.random() > 0.5 ? 1 : -1;
   const progressBoost = 1 + (1 - state.timeLeft / mode.duration) * 0.34;
   const speed = randomBetween(mode.speedMin, mode.speedMax) * lane.scale * progressBoost;
-  const y = bounds.height * lane.y - size * 0.45;
+  const y = bounds.height * lane.y - size * 0.82;
   const x = direction === 1 ? -size * 1.35 : bounds.width + size * 1.35;
   const wobble = Math.random() * Math.PI * 2;
   const drift = randomBetween(-8, 8);
@@ -225,7 +243,7 @@ function createCat() {
   element.type = "button";
   element.className = `cat ${variant.className}`;
   element.style.setProperty("--size", `${size}px`);
-  element.innerHTML = createCatMarkup();
+  element.innerHTML = createCatMarkup(variant);
   element.setAttribute("aria-label", `Tag the ${variant.label} cat`);
 
   const cat = {
@@ -240,6 +258,7 @@ function createCat() {
     laneIndex,
     points: variant.points,
     isGold,
+    bobFactor: variant.bobFactor,
     element,
   };
 
@@ -257,9 +276,9 @@ function createCat() {
 }
 
 function renderCat(cat) {
-  const bob = Math.sin(performance.now() / 140 + cat.wobble) * (6 + cat.drift * 0.15);
-  const flip = cat.direction === 1 ? 1 : -1;
-  cat.element.style.transform = `translate3d(${cat.x}px, ${cat.baseY + bob}px, 0) scale(${flip}, 1)`;
+  const bob = Math.sin(performance.now() / 140 + cat.wobble) * (6 + cat.drift * 0.15) * cat.bobFactor;
+  const lean = Math.sin(performance.now() / 170 + cat.wobble) * 1.4;
+  cat.element.style.transform = `translate3d(${cat.x}px, ${cat.baseY + bob}px, 0) rotate(${lean}deg)`;
 }
 
 function removeCat(cat) {
@@ -466,4 +485,14 @@ window.addEventListener("resize", updateArenaRect);
 setMode(state.mode);
 syncHud();
 updateArenaRect();
+
+const params = new URLSearchParams(window.location.search);
+if (params.get("autostart") === "1") {
+  const requestedMode = params.get("mode");
+  if (requestedMode && MODES[requestedMode]) {
+    setMode(requestedMode);
+  }
+  startRound();
+}
+
 state.rafId = window.requestAnimationFrame(tick);
